@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 
 import com.care.root.member.dao.MemberDAO;
 import com.care.root.member.dto.MemberDTO;
+import com.care.root.member.dto.UserCheckDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -26,6 +27,11 @@ public class MemberServiceImpl implements MemberService {
 	public void memberList(Model model) {
 		model.addAttribute("list",dao.memberList() );
 	}
-	
-	
+	public void check(String id, String pwd, Model model) {
+		UserCheckDTO dto = dao.check(id, pwd);
+		model.addAttribute("usercheck",dto);
+	}
+	public void memberInfo(String id,Model model) {
+		model.addAttribute("member",dao.memberInfo(id) );
+	}
 }

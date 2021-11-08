@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.care.root.member.dto.MemberDTO;
 import com.care.root.member.service.MemberService;
@@ -74,4 +75,19 @@ public class MemberController {
 			return "redirect : index";
 		}
 */
+	
+	@RequestMapping("check") //저장된 아이디, 비번 비교
+	public String check(Model model, RedirectAttributes re,  //redirect로 넘기려고 만듦
+				@RequestParam("id") String id, @RequestParam("pwd") String pwd) {
+		ms.check(id, pwd, model); //check쪽으로 model에 저장해서 넘기겠다
+		re.addFlashAttribute("reMap", model);
+		return "redirect:/member/index";
+	}
+
+	@RequestMapping("memberInfo")
+	public String memberInfo(@RequestParam String id, Model model) {
+		ms.memberInfo(id, model);
+		return "member/member_info";
+	}
 }
+
